@@ -57,7 +57,6 @@
     </div>
     <!-- Navbar End -->
 
-
     <div class="container-fluid page-header mb-5 wow fadeIn" data-wow-delay="0.1s">
     <div class="container text-center">
         <h1 class="display-4 text-white animated slideInDown mb-4">List Program</h1>
@@ -104,6 +103,12 @@
                             <a href="<?= base_url('home/history2/'.$key->id_program)?>">
                                 <button class="btn btn-primary px-3">History</button>
                             </a>
+
+                            <?php if(session()->get('level')=="admin" ){ ?>
+                            <a href="<?= base_url('home/deleteprogram/'.$key->id_program)?>">
+                                <button class="btn btn-danger px-3">Delete</button>
+                            </a>
+                            <?php } ?>
                         </td>
                     </tr>
                 <?php } ?>
