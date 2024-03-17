@@ -184,6 +184,14 @@ public function addprogram1()
 	return redirect()->to('home/listprogram');
 }
 
+public function deleteprogram($id)
+{
+	$model = new M_dana;
+	$where = array('id_program' =>$id);
+	$model->hapus('program', $where);
+	return redirect()->to('home/listprogram');
+}
+
 public function history2($id_program)
 {
     if (session()->get('level') > '') {
