@@ -604,4 +604,6 @@
   .card-group > .card:not(:first-child) .card-footer {
       border-bottom-left-radius: 0;
     }
+
+    
   }

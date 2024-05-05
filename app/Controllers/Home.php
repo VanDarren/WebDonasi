@@ -4,6 +4,9 @@ namespace App\Controllers;
 
 use CodeIgniter\Controller;
 use App\Models\M_dana;
+use App\Helpers\tcpdf_helper;
+
+use TCPDF;
 class Home extends BaseController
 {
 	public function menu()
@@ -55,17 +58,17 @@ class Home extends BaseController
 	}
 
 	public function register()
-{
+	{
 	
 	$model = new M_dana;
 	$data['darren'] = $model->tampil('user');
 	echo view ('header');
 	echo view('register'); 
 
-}
+	}
 
-public function aksi_register()
-{
+	public function aksi_register()
+	{
 	$username = $this->request->getPost('username');
 	$password = $this->request->getPost('password');
 	$level = $this->request->getPost('status');
@@ -82,9 +85,9 @@ public function aksi_register()
 	$model->tambah('user', $tabel);
 	return redirect()->to('home/login');
 
-}
+	}
 
-public function donasi()
+	public function donasi()
 	{
 		if(session()->get('level')>''){
 		$model=new M_dana;
@@ -242,7 +245,7 @@ public function profile()
 
 	$where = array('id_user' => session()->get('id'));
 	$data['user'] = $model->getWhere('user', $where);
-	echo view('header');
+	echo view('header'); 
 	echo view('profile',$data); 
 	echo view('footer');
 	}else{
@@ -305,4 +308,91 @@ public function editprofile1()
 	$model->edit('user',$isi, $where);
 	return redirect()->to('home/profile');
 }
+
+public function print()
+{
+	$model = new M_dana;
+	$data['darren'] = $model->join3s('donasi','program','user','donasi.id_program=program.id_program','donasi.id_user=user.id_user');
+	echo view ('header');
+	echo view ('print',$data);
+	echo view ('footer');
+}
+
+public function printpdf()
+	{
+		if(session()->get('level')>''){
+				$tanggalmulai = $this->request->getpost('tanggal1');
+				$tanggalakhir = $this->request->getpost('tanggal2');
+		
+				$model = new M_dana();
+				$data = [
+					'satu' => $model->betweenjoin1(
+						'donasi', 'program', 'user',
+						'donasi.id_program=program.id_program', 
+						'donasi.id_user=user.id_user', 
+						$tanggalmulai, 
+						$tanggalakhir
+					),
+					'tanggalmulai' => $tanggalmulai,
+					'tanggalakhir' => $tanggalakhir,
+				];
+			
+			return view('printpdf', $data);
+				// print_r($data);
+		} else {
+			return redirect()->to('Home/login');
+		}
+	}
+
+	public function printexcel()
+	{
+		if(session()->get('level')>''){
+				$tanggalmulai = $this->request->getpost('tanggal1');
+				$tanggalakhir = $this->request->getpost('tanggal2');
+		
+				$model = new M_dana();
+				$data = [
+					'satu' => $model->betweenjoin1(
+						'donasi', 'program', 'user',
+						'donasi.id_program=program.id_program', 
+						'donasi.id_user=user.id_user', 
+						$tanggalmulai, 
+						$tanggalakhir
+					),
+					'tanggalmulai' => $tanggalmulai,
+					'tanggalakhir' => $tanggalakhir,
+				];
+			
+			return view('printexcel', $data);
+				// print_r($data);
+		} else {
+			return redirect()->to('Home/login');
+		}
+	}
+
+	public function printwindows()
+	{
+		if(session()->get('level')>''){
+				$tanggalmulai = $this->request->getpost('tanggal1');
+				$tanggalakhir = $this->request->getpost('tanggal2');
+		
+				$model = new M_dana();
+				$data = [
+					'satu' => $model->betweenjoin1(
+						'donasi', 'program', 'user',
+						'donasi.id_program=program.id_program', 
+						'donasi.id_user=user.id_user', 
+						$tanggalmulai, 
+						$tanggalakhir
+					),
+					'tanggalmulai' => $tanggalmulai,
+					'tanggalakhir' => $tanggalakhir,
+				];
+			
+			return view('view_pdf', $data);
+				// print_r($data);
+		} else {
+			return redirect()->to('Home/login');
+		}
+	}
 }

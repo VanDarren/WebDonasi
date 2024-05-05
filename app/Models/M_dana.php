@@ -108,4 +108,14 @@ class M_dana extends Model
             return $this->where('id_user', $id)->first();
         }
 
+        public function betweenjoin1($table1,$table2,$table3,$on1,$on2,$tanggalAwal, $tanggalAkhir)
+{
+        return $this->db->table($table1)
+        ->join($table2,$on1)
+        ->join($table3,$on2)
+        ->where('donasi.tanggal>=', $tanggalAwal)
+        ->where('donasi.tanggal<=', $tanggalAkhir)
+        ->get()
+        ->getResult();
+}
     }

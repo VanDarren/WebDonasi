@@ -42,6 +42,9 @@ class Autoload extends AutoloadConfig
 	public $psr4 = [
 		APP_NAMESPACE => APPPATH, // For custom app namespace
 		'Config'      => APPPATH . 'Config',
+		'App'         => APPPATH,
+    APP_NAMESPACE => APPPATH,
+    'TCPDF'       => ROOTPATH . 'vendor/tecnickcom/tcpdf/',
 	];
 
 	/**
@@ -62,8 +65,11 @@ class Autoload extends AutoloadConfig
 	 *```
 	 * @var array<string, string>
 	 */
-	public $classmap = [];
+	public $classmap = [
+		'TCPDF' => ROOTPATH . 'vendor/tecnickcom/tcpdf/tcpdf.php',
+	];
 
+	
 	/**
 	 * -------------------------------------------------------------------
 	 * Files
@@ -81,4 +87,5 @@ class Autoload extends AutoloadConfig
 	 * @var array<int, string>
 	 */
 	public $files = [];
+	
 }

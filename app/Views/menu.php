@@ -31,6 +31,7 @@
                 <div class="navbar-nav ms-auto p-4 p-lg-0">
                     <a href="menu" class="nav-item nav-link active">Home</a>
                     <a href="#program-donasi" class="nav-item nav-link">Program</a>
+                    <a href="print" class="nav-item nav-link">Print</a>
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Profile</a>
                         <div class="dropdown-menu m-0">
